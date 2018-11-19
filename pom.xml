@@ -4,15 +4,15 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>5</version>
+      <groupId>com.fasterxml</groupId>
+      <artifactId>oss-parent</artifactId>
+      <version>31</version>
   </parent>
   <groupId>com.fasterxml.uuid</groupId>
   <artifactId>java-uuid-generator</artifactId>
   <packaging>bundle</packaging>
   <name>Java UUID Generator</name>
-  <version>3.1.4-SNAPSHOT</version>
+  <version>3.1.6-SNAPSHOT</version>
   <description>
 Java UUID Generator (JUG) is a Java library for generating
 Universally Unique IDentifiers, UUIDs (see http://en.wikipedia.org/wiki/UUID).
@@ -24,6 +24,7 @@ JUG supports all 3 official UUID generation methods.
     <connection>scm:git:git://github.com/cowtowncoder/java-uuid-generator.git</connection>
     <url>scm:git:git@github.com:cowtowncoder/java-uuid-generator.git</url>
     <developerConnection>scm:git:git@github.com:cowtowncoder/java-uuid-generator.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
   <developers>
     <developer>
@@ -63,13 +64,13 @@ JUG supports all 3 official UUID generation methods.
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${log4j.version}</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
     <!-- and for testing, JUnit is needed -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.2</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -80,7 +81,7 @@ JUG supports all 3 official UUID generation methods.
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
+          <version>3.1</version>
           <configuration>
             <source>1.6</source>
             <target>1.6</target>
@@ -104,29 +105,22 @@ JUG supports all 3 official UUID generation methods.
        <plugin>
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-javadoc-plugin</artifactId>
-         <version>2.6.1</version>
-          <configuration>
-              <encoding>UTF-8</encoding>
-              <links>
-                  <link>http://java.sun.com/javase/6/docs/api/</link>
-              </links>
-          </configuration>
-          <executions>
-              <execution>
+         <version>${version.plugin.javadoc}</version>
+         <executions>
+             <execution>
                   <id>attach-javadocs</id>
                   <phase>verify</phase>
                   <goals>
                       <goal>jar</goal>
                   </goals>
-              </execution>
-          </executions>
+             </execution>
+         </executions>
        </plugin>
 
        <!-- Plus, let's make jars OSGi bundles as well  -->
         <plugin>
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
-          <version>2.3.4</version>
           <extensions>true</extensions>
           <configuration>
             <instructions>
@@ -157,7 +151,6 @@ JUG supports all 3 official UUID generation methods.
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.1</version>
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
           </configuration>

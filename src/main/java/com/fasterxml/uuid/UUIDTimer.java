@@ -30,11 +30,11 @@ import com.fasterxml.uuid.impl.UUIDUtil;
  *   To compensate, an additional counter is used,
  *   so that more than one UUID can be generated between java clock
  *   updates. Counter may be used to generate up to 10000 UUIDs for
- *   each distrinct java clock value.
+ *   each distinct java clock value.
  *<li>Due to even lower clock resolution on some platforms (older
  *  Windows versions use 55 msec resolution), timestamp value can
  *  also advanced ahead of physical value within limits (by default,
- *  up 100 millisecond ahead of reported), iff necessary (ie. 10000
+ *  up 100 millisecond ahead of reported), if necessary (ie. 10000
  *  instances created before clock time advances).
  *<li>As an additional precaution, counter is initialized not to 0
  *   but to a random 8-bit number, and each time clock changes, lowest
@@ -70,7 +70,7 @@ import com.fasterxml.uuid.impl.UUIDUtil;
  * 3.1.1 and above) is {@link #getTimestamp}, so caller need not
  * synchronize access explicitly.
  */
-public final class UUIDTimer
+public class UUIDTimer
 {
     // // // Constants
 
@@ -205,14 +205,13 @@ public final class UUIDTimer
     }
     
     /**
-     * Method that constructs timestamp unique and suitable to use for
-     * constructing UUIDs. Default implementation just calls
-     * {@link #getTimestampSynchronized}, which is fully synchronized;
+     * Method that constructs unique timestamp suitable for use for
+     * constructing UUIDs. Default implementation is fully synchronized;
      * sub-classes may choose to implemented alternate strategies
      *
      * @return 64-bit timestamp to use for constructing UUID
      */
-    public final synchronized long getTimestamp()
+    public synchronized long getTimestamp()
     {
         long systime = System.currentTimeMillis();
         /* Let's first verify that the system time is not going backwards;
@@ -299,7 +298,7 @@ public final class UUIDTimer
      */
     
     /* Method for accessing timestamp to use for creating UUIDs.
-     * Used ONLY by unit tests, hence protexted.
+     * Used ONLY by unit tests, hence protected.
      */
     protected final void getAndSetTimestamp(byte[] uuidBytes)
     {
@@ -343,7 +342,7 @@ public final class UUIDTimer
      * @param msecs Number of milliseconds to wait for from current 
      *    time point
      */
-    private final static void slowDown(long startTime, long actDiff)
+    protected static void slowDown(long startTime, long actDiff)
     {
         /* First, let's determine how long we'd like to wait.
          * This is based on how far ahead are we as of now.

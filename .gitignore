@@ -5,3 +5,10 @@ target
 .classpath
 .project
 .settings
+
+# plus IDEA crap
+*.iml
+*.ipr
+.idea
+
+*~
